@@ -1,0 +1,10 @@
+{
+  "name": "livetime-starter",
+  "private": true,
+  "scripts": {
+    "start": "node scripts/serve.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

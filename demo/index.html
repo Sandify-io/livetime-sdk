@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Livetime Chat</title>
+    <style>
+      :root { color-scheme: light; font: 16px/1.5 system-ui, sans-serif; color: #182424; background: #f4f7f6; }
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      main { max-width: 70rem; margin: auto; padding: clamp(1rem, 5vw, 3rem); }
+      header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+      h1, p { margin: 0; }
+      h1 { line-height: 1.15; letter-spacing: -.035em; }
+      .intro p, .subtle { color: #4a5e59; }
+      .intro p { margin-top: .5rem; }
+      .room { margin-bottom: 1.25rem; overflow-wrap: anywhere; font-size: .875rem; }
+      .room output { display: block; margin-top: .25rem; font-family: ui-monospace, monospace; color: #4a5e59; }
+      #frames { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); }
+      iframe { width: 100%; height: 29rem; border: 1px solid #c6d7d1; border-radius: 1rem; background: #fff; }
+      .client { background: #fff; }
+      .client main { padding: 0; }
+      .chat { display: flex; flex-direction: column; gap: .75rem; height: 100dvh; padding: 1rem; }
+      .chat header { align-items: baseline; margin: 0; gap: .25rem 1rem; }
+      .new-tab { display: inline-block; padding: .45rem .85rem; border: 1px solid #9eb5ad; border-radius: .55rem; color: #12534a; font-weight: 600; }
+      button, input { min-height: 2.75rem; font: inherit; border-radius: .55rem; }
+      button { border: 0; padding: .4rem .95rem; color: white; background: #12534a; cursor: pointer; font-weight: 600; }
+      button:disabled { opacity: .5; cursor: default; }
+      button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid #268275; outline-offset: 2px; }
+      input { min-width: 0; flex: 1; padding: .4rem .65rem; border: 1px solid #9eb5ad; background: #fff; color: #182424; }
+      form { display: flex; gap: .5rem; }
+      #messages { flex: 1; min-height: 0; overflow: auto; padding: 0; margin: 0; list-style: none; }
+      #messages li { max-width: 92%; width: fit-content; margin: .4rem 0; border-radius: .65rem; padding: .35rem .65rem; background: #eef3f1; }
+      #messages li[data-own] { margin-left: auto; background: #dff3eb; }
+      #messages strong { display: block; font-size: .8rem; color: #3e6258; }
+      #messages span { overflow-wrap: anywhere; white-space: pre-wrap; }
+      .receipt { display: block; margin-top: .15rem; color: #3e6258; font-size: .75rem; }
+      #typing { min-height: 1.25rem; font-size: .875rem; }
+      summary { cursor: pointer; font-size: .875rem; font-weight: 600; }
+      #activity { height: 5.75rem; overflow: auto; margin: .35rem 0 0; padding: .5rem; border-radius: .5rem; background: #172624; color: #def2e9; font-size: .75rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+    </style>
+    <script type="module" src="./chat.mjs"></script>
+  </head>
+  <body>
+    <main id="app">
+      <header>
+        <div class="intro">
+          <h1>Livetime Chat</h1>
+          <p>Two guests connect automatically. Open another tab to add two more to the same room.</p>
+        </div>
+        <a class="new-tab" href="./" target="_blank" rel="noopener">Open another tab</a>
+      </header>
+      <p class="room">
+        Shared topic
+        <output id="topic" aria-label="Shared topic"></output>
+      </p>
+      <p id="host-status" role="status"></p>
+      <div id="frames"></div>
+    </main>
+
+    <template id="chat-client">
+      <section class="chat" aria-label="Shared chat">
+        <header>
+          <p>You are <strong id="participant"></strong></p>
+          <p id="connection" role="status" class="subtle">Connecting…</p>
+        </header>
+        <ol id="messages" role="log" aria-label="Chat messages"></ol>
+        <p id="typing" role="status" class="subtle"></p>
+        <form id="compose">
+          <input id="message" aria-label="Message" placeholder="Type a message" autocomplete="off" required disabled>
+          <button id="send" type="submit" disabled>Send</button>
+        </form>
+        <details open>
+          <summary>API activity</summary>
+          <pre id="activity" aria-label="API activity" tabindex="0"></pre>
+        </details>
+      </section>
+    </template>
+  </body>
+</html>
