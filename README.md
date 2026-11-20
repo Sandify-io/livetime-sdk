@@ -1,7 +1,8 @@
-# Realtime events over HTTP
+# Livetime: Realtime events over HTTP
 
 Publish to named topics and deliver updates to your app as they happen. Use Livetime for live chat, agent responses and app events.
-## [`https://zen.api.whatee.io/livetime?lang=en#use-cases`](Use Cases)
+## Where Livetime fits
+   Check demo [here](https://zen.api.whatee.io/livetime?lang=en#use-cases)
 ## Use the SDK and skills
 
 | File | Purpose |
